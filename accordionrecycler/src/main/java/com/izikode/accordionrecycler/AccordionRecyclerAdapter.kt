@@ -39,6 +39,10 @@ abstract class AccordionRecyclerAdapter<ViewHolder, DataType> : AdapterContract.
         presenter.clearItems()
     }
 
+    fun removeItem(position: Int) {
+        presenter.removeItem(position)
+    }
+
     fun removeEnclosedItems(enclosingPosition: Int) {
         presenter.removeEnclosedItems(enclosingPosition)
     }

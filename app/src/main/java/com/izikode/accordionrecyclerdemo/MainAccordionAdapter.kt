@@ -39,6 +39,8 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
                     onClick = { position, enclosedSum ->
                         if (enclosedSum > 0) {
                             removeEnclosedItems(position)
+                        } else {
+                            removeItem(position)
                         }
                     }
                 }
@@ -49,12 +51,18 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
                     onClick = { position, enclosedSum ->
                         if (enclosedSum > 0) {
                             removeEnclosedItems(position)
+                        } else {
+                            removeItem(position)
                         }
                     }
                 }
 
             is WhiteViewHolder -> viewHolder.apply {
                     update(data as WhiteData?, overallPosition, enclosedPosition)
+
+                    onClick = {
+                        removeItem(it)
+                    }
                 }
 
             else -> (viewHolder as GrayViewHolder).update(data as GrayData?, overallPosition)

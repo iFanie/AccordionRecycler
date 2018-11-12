@@ -91,17 +91,27 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
     }
 
     override fun clearData(silently: Boolean) {
-        removeData(0, dataCount, silently)
-    }
-
-    override fun removeData(startingIndex: Int, numberOfEntriesToRemove: Int, silently: Boolean) {
-        for (removeIndex in startingIndex until startingIndex + numberOfEntriesToRemove) {
-            containingListMap.remove(dataList[removeIndex])
-            dataList.removeAt(removeIndex)
-        }
+        containingListMap.clear()
+        dataList.clear()
 
         if (!silently) {
-            presenter.onItemsRemoved(startingIndex, numberOfEntriesToRemove)
+            presenter.onItemSetChanged()
+        }
+    }
+
+    override fun removeData(index: Int, silently: Boolean) {
+        dataList[index].let { wrapper ->
+            val previousIndex = index - 1
+            val sum = recursivelyRemoveAllAndReturnSum(wrapper, true, true)
+
+            if (!silently) {
+                presenter.onItemsRemoved(index, sum)
+
+                if (previousIndex >= 0) {
+                    val changedSum = if (previousIndex < dataCount - 1) 2 else 1
+                    presenter.onItemsChanged(previousIndex, changedSum)
+                }
+            }
         }
     }
 
@@ -120,16 +130,43 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
     /**
      *
      */
-    private fun recursivelyRemoveAllAndReturnSum(enclosingWrapper: Wrapper<out DataType?>, inclusive: Boolean = true): Int {
+    private fun recursivelyRemoveAllAndReturnSum(enclosingWrapper: Wrapper<out DataType?>, inclusive: Boolean = true, backwards: Boolean = false): Int {
         var sum = 0
 
-        containingListMap[enclosingWrapper]?.forEach { enclosedWeakReference ->
-            enclosedWeakReference.get()?.let { enclosedWrapper ->
-                sum += recursivelyRemoveAllAndReturnSum(enclosedWrapper, true)
+        containingListMap[enclosingWrapper]?.let { enclosedWeakReferences ->
+            clearListFromNullReferences(enclosedWeakReferences)
+
+            enclosedWeakReferences.forEach { enclosedWeakReference ->
+                enclosedWeakReference.get()?.let { enclosedWrapper ->
+                    sum += recursivelyRemoveAllAndReturnSum(enclosedWrapper, true)
+                }
             }
+
+            enclosedWeakReferences.clear()
         }
 
         if (inclusive) {
+            if (backwards) {
+                enclosingWrapper.enclosingWrapper?.let { outerEnclosingWrapper ->
+                    containingListMap[outerEnclosingWrapper]?.let { outerEnclosingWeakReferences ->
+                        clearListFromNullReferences(outerEnclosingWeakReferences)
+
+                        var indexInOuter: Int? = null
+
+                        for (index in 0 until outerEnclosingWeakReferences.size) {
+                            if (outerEnclosingWeakReferences[index].get() == enclosingWrapper) {
+                                indexInOuter = index
+                                break
+                            }
+                        }
+
+                        indexInOuter?.let {
+                            outerEnclosingWeakReferences.removeAt(it)
+                        }
+                    }
+                }
+            }
+
             containingListMap.remove(enclosingWrapper)
             dataList.remove(enclosingWrapper)
 

@@ -41,6 +41,10 @@ class AdapterPresenter<DataType>(
         model.clearData()
     }
 
+    override fun removeItem(position: Int) {
+        model.removeData(position)
+    }
+
     override fun removeEnclosedItems(enclosingPosition: Int) {
         model.removeEnclosedData(enclosingPosition)
     }

@@ -32,12 +32,9 @@ interface AdapterContract {
         fun clearData(silently: Boolean = false)
 
         /**
-         * Removes the provided number of data entries, starting from the provided index, and notifies the [Presenter].
          *
-         * @param startingIndex  The index of the first data entry to be removed.
-         * @param numberOfEntriesToRemove  The number of total data entries to be removed.
          */
-        fun removeData(startingIndex: Int, numberOfEntriesToRemove: Int, silently: Boolean = false)
+        fun removeData(index: Int, silently: Boolean = false)
 
         /**
          * TODO
@@ -142,6 +139,11 @@ interface AdapterContract {
          *
          */
         fun clearItems()
+
+        /**
+         *
+         */
+        fun removeItem(position: Int)
 
         /**
          * TODO

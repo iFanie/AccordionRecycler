@@ -16,11 +16,7 @@ class WhiteViewHolder(parent: ViewGroup) : ColorViewHolder<WhiteData>(parent, R.
     private val bottomShadow by lazy { itemView.findViewById<View>(R.id.white_bottomShadow) }
     private val divider by lazy { itemView.findViewById<View>(R.id.white_divider) }
 
-    init {
-        container.setOnClickListener {
-
-        }
-    }
+    var onClick: ((position: Int) -> Unit)? = null
 
     override var data: WhiteData? = null
         set(value) {
@@ -86,6 +82,12 @@ class WhiteViewHolder(parent: ViewGroup) : ColorViewHolder<WhiteData>(parent, R.
                 divider.visibility = View.VISIBLE
             }
 
+        }
+    }
+
+    init {
+        container.setOnClickListener {
+            onClick?.invoke(adapterPosition)
         }
     }
 
