@@ -44,10 +44,10 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
     }
 
     /**
-     * Adds all items in the provided array along with all secondary data, in their relative order.
+     * Adds all items in the provided array along with all enclosedDataArray data, in their relative order.
      *
-     * @param dataArray  The items to be added, along with their secondary data.
-     * @return The total number, primary plus secondary, of data entries added.
+     * @param dataArray  The items to be added, along with their enclosedDataArray data.
+     * @return The total number, primary plus enclosedDataArray, of data entries added.
      */
     private fun recursivelyAddAllAndReturnSum(dataArray: Array<out AccordionRecyclerData<out DataType?>>,
               recursionDepth: Int = 0, containingData: Wrapper<out DataType?>? = null): Int {
@@ -70,7 +70,7 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
             val mainWrapper = Wrapper(
                     accordionRecyclerData.viewType,
                     containingData,
-                    accordionRecyclerData.main
+                    accordionRecyclerData.mainData
                 )
 
             /* Add main data */
@@ -80,8 +80,8 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
             /* Update map list if needed */
             containingList?.add(WeakReference(mainWrapper))
 
-            /* If exist, add secondary data recursively */
-            accordionRecyclerData.secondary?.let {
+            /* If exist, add enclosed data array recursively */
+            accordionRecyclerData.enclosedDataArray?.let {
                 val secondarySum = recursivelyAddAllAndReturnSum(it, recursionDepth + 1, mainWrapper)
                 sum += secondarySum
             }
@@ -117,6 +117,9 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
         }
     }
 
+    /**
+     *
+     */
     private fun recursivelyRemoveAllAndReturnSum(enclosingWrapper: Wrapper<out DataType?>, inclusive: Boolean = true): Int {
         var sum = 0
 
@@ -173,6 +176,9 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
 
     override fun getDataEnclosedPosition(index: Int): AccordionRecyclerPosition = getEnclosedPosition(dataList[index])
 
+    /**
+     *
+     */
     private fun getEnclosedPosition(wrapper: Wrapper<out DataType?>): AccordionRecyclerPosition = containingListMap[wrapper.enclosingWrapper]?.let { containingList ->
             clearListFromNullReferences(containingList)
 
@@ -192,6 +198,9 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
         enclosedPosition
         } ?: AccordionRecyclerPosition.UNKNOWN
 
+    /**
+     *
+     */
     private fun clearListFromNullReferences(list: MutableList<WeakReference<Wrapper<out DataType?>>>) {
         val nullIndexes = arrayListOf<Int>()
 
@@ -206,6 +215,9 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
         }
     }
 
+    /**
+     *
+     */
     private fun getPositionFromEnclosureIndexAndSize(enclosureIndex: Int, enclosureSize: Int) = when {
 
             enclosureIndex == 0 && enclosureSize == 1 -> AccordionRecyclerPosition.SINGLE
@@ -218,7 +230,7 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
     /**
      * Helper class for the model data items.
      */
-    data class Wrapper<Type>(
+    data class Wrapper<DataType>(
 
         /**
          * The viewType of the current item.
@@ -228,12 +240,12 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
         /**
          * The item from which the current item hails from.
          */
-        var enclosingWrapper: Wrapper<out Type?>?,
+        var enclosingWrapper: Wrapper<out DataType?>?,
 
         /**
          * The current item value.
          */
-        var data: Type?
+        var data: DataType?
 
     )
 

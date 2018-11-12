@@ -5,19 +5,19 @@ package com.izikode.accordionrecycler
  */
 interface AccordionRecyclerData<Type> {
 
-        /**
-         *
-         */
-        var viewType: Int
+    /**
+     *
+     */
+    var viewType: Int
 
-        /**
-         *
-         */
-        var main: Type?
+    /**
+     *
+     */
+    var mainData: Type?
 
-        /**
-         *
-         */
-        var secondary: Array<out AccordionRecyclerData<out Type?>>?
+    /**
+     *
+     */
+    var enclosedDataArray: Array<out AccordionRecyclerData<out Type?>>?
 
 }
