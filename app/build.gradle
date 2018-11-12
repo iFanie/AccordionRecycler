@@ -6,13 +6,13 @@ android {
     compileSdkVersion Version.Sdk.BASE
 
     defaultConfig {
-        applicationId "com.izikode.accordionrecyclerdemo"
+        applicationId "com.izikode.izilib.accordionrecyclerdemo"
 
         minSdkVersion Version.Sdk.MIN
         targetSdkVersion Version.Sdk.BASE
 
-        versionCode 1
-        versionName "1.0"
+        versionCode Version.Build.CODE
+        versionName "${ Version.Build.MAJOR }.${ Version.Build.MINOR }"
     }
 }
 
