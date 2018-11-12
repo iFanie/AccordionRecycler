@@ -1,11 +1,12 @@
-package com.izikode.accordionrecycler.adapter
+package com.izikode.izilib.accordionrecycler.adaptercomponents
 
-import com.izikode.accordionrecycler.AccordionRecyclerData
-import com.izikode.accordionrecycler.AccordionRecyclerPosition
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
 import java.lang.ref.WeakReference
 import java.util.*
 
-class AdapterModel<DataType> : AdapterContract.Model<DataType> {
+class AdapterModel<DataType> :
+    AdapterContract.Model<DataType> {
 
     private lateinit var presenter: AdapterContract.Presenter<out DataType>
 
@@ -83,10 +84,10 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
         dataArray.forEach { accordionRecyclerData ->
 
             val mainWrapper = Wrapper(
-                    accordionRecyclerData.viewType,
-                    containingData,
-                    accordionRecyclerData.mainData
-                )
+                accordionRecyclerData.viewType,
+                containingData,
+                accordionRecyclerData.mainData
+            )
 
             /* Add main data */
             dataList.add(startFrom, mainWrapper)

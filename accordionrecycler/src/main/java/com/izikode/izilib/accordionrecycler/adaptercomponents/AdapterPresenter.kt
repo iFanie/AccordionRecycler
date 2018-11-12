@@ -1,13 +1,13 @@
-package com.izikode.accordionrecycler.adapter
+package com.izikode.izilib.accordionrecycler.adaptercomponents
 
-import com.izikode.accordionrecycler.AccordionRecyclerData
-import com.izikode.accordionrecycler.AccordionRecyclerPosition
-import com.izikode.accordionrecycler.AccordionRecyclerViewHolder
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerViewHolder
 
 class AdapterPresenter<DataType>(
 
-        private val model: AdapterContract.Model<DataType>,
-        private val view: AdapterContract.View<out AccordionRecyclerViewHolder<out AccordionRecyclerData<out DataType?>>, out DataType>
+    private val model: AdapterContract.Model<DataType>,
+    private val view: AdapterContract.View<out AccordionRecyclerViewHolder<out AccordionRecyclerData<out DataType?>>, out DataType>
 
 ) : AdapterContract.Presenter<DataType> {
 
@@ -108,7 +108,8 @@ class AdapterPresenter<DataType>(
                 : AdapterPresenter<DataType> {
 
             val model = AdapterModel<DataType>()
-            val presenter = AdapterPresenter(model, view)
+            val presenter =
+                AdapterPresenter(model, view)
 
             model.initialize(presenter)
 

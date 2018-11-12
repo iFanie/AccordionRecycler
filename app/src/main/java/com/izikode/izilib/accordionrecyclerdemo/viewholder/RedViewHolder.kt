@@ -1,12 +1,12 @@
-package com.izikode.accordionrecyclerdemo.viewholder
+package com.izikode.izilib.accordionrecyclerdemo.viewholder
 
 import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.izikode.accordionrecycler.AccordionRecyclerPosition
-import com.izikode.accordionrecyclerdemo.R
-import com.izikode.accordionrecyclerdemo.data.RedData
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
+import com.izikode.izilib.accordionrecyclerdemo.R
+import com.izikode.izilib.accordionrecyclerdemo.data.RedData
 
 class RedViewHolder(parent: ViewGroup) : ColorViewHolder<RedData>(parent, R.layout.view_holder_red) {
 

@@ -1,7 +1,7 @@
-package com.izikode.accordionrecycler
+package com.izikode.izilib.accordionrecycler
 
-import com.izikode.accordionrecycler.adapter.AdapterContract
-import com.izikode.accordionrecycler.adapter.AdapterPresenter
+import com.izikode.izilib.accordionrecycler.adaptercomponents.AdapterContract
+import com.izikode.izilib.accordionrecycler.adaptercomponents.AdapterPresenter
 
 /**
  *

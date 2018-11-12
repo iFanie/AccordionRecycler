@@ -1,9 +1,9 @@
-package com.izikode.accordionrecyclerdemo.viewholder
+package com.izikode.izilib.accordionrecyclerdemo.viewholder
 
 import android.support.annotation.LayoutRes
 import android.view.ViewGroup
-import com.izikode.accordionrecycler.AccordionRecyclerViewHolder
-import com.izikode.accordionrecyclerdemo.data.ColorData
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerViewHolder
+import com.izikode.izilib.accordionrecyclerdemo.data.ColorData
 
 abstract class ColorViewHolder<Data>(
 

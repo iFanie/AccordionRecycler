@@ -1,10 +1,10 @@
-package com.izikode.accordionrecycler.adapter
+package com.izikode.izilib.accordionrecycler.adaptercomponents
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.izikode.accordionrecycler.AccordionRecyclerData
-import com.izikode.accordionrecycler.AccordionRecyclerPosition
-import com.izikode.accordionrecycler.AccordionRecyclerViewHolder
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerViewHolder
 import java.util.*
 
 interface AdapterContract {

@@ -1,10 +1,10 @@
-package com.izikode.accordionrecyclerdemo
+package com.izikode.izilib.accordionrecyclerdemo
 
 import android.view.ViewGroup
-import com.izikode.accordionrecycler.AccordionRecyclerAdapter
-import com.izikode.accordionrecycler.AccordionRecyclerPosition
-import com.izikode.accordionrecyclerdemo.data.*
-import com.izikode.accordionrecyclerdemo.viewholder.*
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerAdapter
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
+import com.izikode.izilib.accordionrecyclerdemo.data.*
+import com.izikode.izilib.accordionrecyclerdemo.viewholder.*
 
 class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorData>, ColorData>() {
 

@@ -1,6 +1,6 @@
-package com.izikode.accordionrecyclerdemo.data
+package com.izikode.izilib.accordionrecyclerdemo.data
 
-import com.izikode.accordionrecycler.AccordionRecyclerData
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
 
 abstract class ColorData(
 

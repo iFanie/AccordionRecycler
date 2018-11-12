@@ -1,4 +1,4 @@
-package com.izikode.accordionrecycler
+package com.izikode.izilib.accordionrecycler
 
 /**
  *

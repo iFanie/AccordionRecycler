@@ -1,4 +1,4 @@
-package com.izikode.accordionrecycler
+package com.izikode.izilib.accordionrecycler
 
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
