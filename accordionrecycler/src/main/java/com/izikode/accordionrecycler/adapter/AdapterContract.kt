@@ -27,6 +27,11 @@ interface AdapterContract {
         fun addData(dataArray: Array<out AccordionRecyclerData<out DataType?>>, silently: Boolean = false)
 
         /**
+         *
+         */
+        fun addEnclosedData(enclosingIndex: Int, enclosedDataArray: Array<out AccordionRecyclerData<out DataType?>>, silently: Boolean = false)
+
+        /**
          * Removes all the stored data and notifies the [Presenter].
          */
         fun clearData(silently: Boolean = false)
@@ -134,6 +139,21 @@ interface AdapterContract {
          *
          */
         fun addItems(itemMutableList: MutableList<out AccordionRecyclerData<out DataType?>>)
+
+        /**
+         *
+         */
+        fun addEnclosedItems(enclosingPosition: Int, enclosedItemArray: Array<out AccordionRecyclerData<out DataType?>>)
+
+        /**
+         *
+         */
+        fun addEnclosedItems(enclosingPosition: Int, enclosedItemList: ArrayList<out AccordionRecyclerData<out DataType?>>)
+
+        /**
+         *
+         */
+        fun addEnclosedItems(enclosingPosition: Int, enclosedItemMutableList: MutableList<out AccordionRecyclerData<out DataType?>>)
 
         /**
          *

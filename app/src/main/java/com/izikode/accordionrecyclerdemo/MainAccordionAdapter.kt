@@ -40,7 +40,7 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
                         if (enclosedSum > 0) {
                             removeEnclosedItems(position)
                         } else {
-                            removeItem(position)
+                            addEnclosedItems(position, (viewHolder.itemView.context as MainActivity).getNewPink())
                         }
                     }
                 }

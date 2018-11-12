@@ -37,6 +37,18 @@ class AdapterPresenter<DataType>(
         model.addData(itemMutableList.toTypedArray())
     }
 
+    override fun addEnclosedItems(enclosingPosition: Int, enclosedItemArray: Array<out AccordionRecyclerData<out DataType?>>) {
+        model.addEnclosedData(enclosingPosition, enclosedItemArray)
+    }
+
+    override fun addEnclosedItems(enclosingPosition: Int, enclosedItemList: ArrayList<out AccordionRecyclerData<out DataType?>>) {
+        model.addEnclosedData(enclosingPosition, enclosedItemList.toTypedArray())
+    }
+
+    override fun addEnclosedItems(enclosingPosition: Int, enclosedItemMutableList: MutableList<out AccordionRecyclerData<out DataType?>>) {
+        model.addEnclosedData(enclosingPosition, enclosedItemMutableList.toTypedArray())
+    }
+
     override fun clearItems() {
         model.clearData()
     }

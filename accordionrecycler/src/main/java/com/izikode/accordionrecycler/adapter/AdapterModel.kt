@@ -36,10 +36,26 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
 
     override fun addData(dataArray: Array<out AccordionRecyclerData<out DataType?>>, silently: Boolean) {
         val startingIndex = dataCount
-        val sum = recursivelyAddAllAndReturnSum(dataArray)
+        val sum = recursivelyAddAllAndReturnSum(startingIndex, dataArray)
 
         if (!silently) {
             presenter.onItemsAdded(startingIndex, sum)
+        }
+    }
+
+    override fun addEnclosedData(enclosingIndex: Int, enclosedDataArray: Array<out AccordionRecyclerData<out DataType?>>, silently: Boolean) {
+        val startingIndex = enclosingIndex + 1
+        val sum = recursivelyAddAllAndReturnSum(startingIndex, enclosedDataArray, dataList[enclosingIndex])
+
+        if (!silently) {
+            presenter.onItemsAdded(startingIndex, sum)
+            presenter.onItemsChanged(enclosingIndex, 1)
+
+            val trailingIndex = startingIndex + sum
+
+            if (trailingIndex < dataCount) {
+                presenter.onItemsChanged(trailingIndex, 1)
+            }
         }
     }
 
@@ -49,10 +65,9 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
      * @param dataArray  The items to be added, along with their enclosedDataArray data.
      * @return The total number, primary plus enclosedDataArray, of data entries added.
      */
-    private fun recursivelyAddAllAndReturnSum(dataArray: Array<out AccordionRecyclerData<out DataType?>>,
-              recursionDepth: Int = 0, containingData: Wrapper<out DataType?>? = null): Int {
-
+    private fun recursivelyAddAllAndReturnSum(startingIndex: Int, dataArray: Array<out AccordionRecyclerData<out DataType?>>, containingData: Wrapper<out DataType?>? = null): Int {
         var sum = 0
+        var startFrom = startingIndex
 
         val containingList = containingData?.let {
                 if (!containingListMap.containsKey(it)) {
@@ -65,7 +80,7 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
                 }
             }
 
-        dataArray.forEachIndexed { index, accordionRecyclerData ->
+        dataArray.forEach { accordionRecyclerData ->
 
             val mainWrapper = Wrapper(
                     accordionRecyclerData.viewType,
@@ -74,16 +89,20 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
                 )
 
             /* Add main data */
-            dataList.add(mainWrapper)
+            dataList.add(startFrom, mainWrapper)
+
             sum += 1
+            startFrom += 1
 
             /* Update map list if needed */
             containingList?.add(WeakReference(mainWrapper))
 
             /* If exist, add enclosed data array recursively */
             accordionRecyclerData.enclosedDataArray?.let {
-                val secondarySum = recursivelyAddAllAndReturnSum(it, recursionDepth + 1, mainWrapper)
+                val secondarySum = recursivelyAddAllAndReturnSum(startFrom, it, mainWrapper)
+
                 sum += secondarySum
+                startFrom += secondarySum
             }
         }
 

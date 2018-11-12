@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         addAll(redArray(2))
     }
 
+    fun getNewPink() = pinkArray(-1, Random().nextInt(4) + 1)
+
     private fun redArray(sum: Int): Array<RedData> = Array(sum) { index ->
             RedData("$index red").apply {
                 enclosedDataArray = pinkArray(index, Random().nextInt(9))

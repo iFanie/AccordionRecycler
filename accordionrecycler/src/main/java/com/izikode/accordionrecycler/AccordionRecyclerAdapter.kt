@@ -35,6 +35,18 @@ abstract class AccordionRecyclerAdapter<ViewHolder, DataType> : AdapterContract.
         presenter.addItems(itemMutableList)
     }
 
+    fun addEnclosedItems(enclosingPosition: Int, enclosedItemArray: Array<out AccordionRecyclerData<out DataType?>>) {
+        presenter.addEnclosedItems(enclosingPosition, enclosedItemArray)
+    }
+
+    fun addEnclosedItems(enclosingPosition: Int, enclosedItemList: ArrayList<out AccordionRecyclerData<out DataType?>>) {
+        presenter.addEnclosedItems(enclosingPosition, enclosedItemList)
+    }
+
+    fun addEnclosedItems(enclosingPosition: Int, enclosedItemMutableList: MutableList<out AccordionRecyclerData<out DataType?>>) {
+        presenter.addEnclosedItems(enclosingPosition, enclosedItemMutableList)
+    }
+
     fun clearItems() {
         presenter.clearItems()
     }
