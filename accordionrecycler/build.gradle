@@ -1,6 +1,31 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+ext {
+    bintrayRepo = Bintray.REPO
+    bintrayName = Bintray.NAME
+
+    publishedGroupId = Bintray.GROUP_ID
+    libraryName = Bintray.REPO
+    artifact = Bintray.NAME
+
+    libraryDescription = Bintray.DESCRIPTION
+
+    siteUrl = Bintray.WEBSITE
+    gitUrl = Bintray.GIT
+
+    libraryBuild = Version.Build.CODE
+    libraryVersion = "${ Version.Build.MAJOR }.${ Version.Build.MINOR }"
+
+    developerId = Bintray.DEV_ID
+    developerName = Bintray.DEV_NAME
+    developerEmail = Bintray.DEV_EMAIL
+
+    licenseName = Bintray.LICENCE
+    licenseUrl = Bintray.LICENCE_NAME
+    allLicenses = Bintray.LICENCES
+}
+
 android {
     compileSdkVersion Version.Sdk.BASE
 
@@ -8,8 +33,8 @@ android {
         minSdkVersion Version.Sdk.MIN
         targetSdkVersion Version.Sdk.BASE
 
-        versionCode 1
-        versionName "1.0"
+        versionCode Version.Build.CODE
+        versionName "${ Version.Build.MAJOR }.${ Version.Build.MINOR }"
     }
 
     buildTypes {
@@ -29,3 +54,6 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
