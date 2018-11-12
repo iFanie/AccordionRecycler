@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:background="@android:color/darker_gray">
+<android.support.constraint.ConstraintLayout android:id="@+id/gray_container"
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="40dp"
+     android:background="@android:color/darker_gray"
+     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView android:id="@+id/gray_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@android:color/black"
         android:gravity="center" />
+
+    <View android:id="@+id/gray_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </android.support.constraint.ConstraintLayout>

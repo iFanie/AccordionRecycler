@@ -105,14 +105,69 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
         }
     }
 
+    override fun removeEnclosedData(enclosingIndex: Int, silently: Boolean) {
+        if (enclosingIndex < dataCount - 1) {
+            val startingIndex = enclosingIndex + 1
+            val sum = recursivelyRemoveAllAndReturnSum(dataList[enclosingIndex], false)
+
+            if (!silently) {
+                presenter.onItemsRemoved(startingIndex, sum)
+                presenter.onItemsChanged(enclosingIndex, 1)
+            }
+        }
+    }
+
+    private fun recursivelyRemoveAllAndReturnSum(enclosingWrapper: Wrapper<out DataType?>, inclusive: Boolean = true): Int {
+        var sum = 0
+
+        containingListMap[enclosingWrapper]?.forEach { enclosedWeakReference ->
+            enclosedWeakReference.get()?.let { enclosedWrapper ->
+                sum += recursivelyRemoveAllAndReturnSum(enclosedWrapper, true)
+            }
+        }
+
+        if (inclusive) {
+            containingListMap.remove(enclosingWrapper)
+            dataList.remove(enclosingWrapper)
+
+            sum += 1
+        } else {
+            containingListMap[enclosingWrapper] = arrayListOf()
+        }
+
+        return sum
+    }
+
     override fun getData(index: Int): DataType? = dataList[index].data
 
     override fun getDataViewType(index: Int): Int = dataList[index].viewType
 
-    override fun getDataEnclosedSum(index: Int): Int = containingListMap[dataList[index]]?.let {
+    override fun getDataEnclosedImmediate(index: Int): SortedMap<Int, DataType?> = containingListMap[dataList[index]]?.let {
         clearListFromNullReferences(it)
-        it.size
-    } ?: 0
+
+        val enclosedImmediate: HashMap<Int, DataType?> = hashMapOf()
+
+        it.forEach { reference ->
+            reference.get()?.let { wrapper ->
+                enclosedImmediate.put(dataList.indexOf(wrapper), wrapper.data)
+            }
+        }
+
+        enclosedImmediate.toSortedMap()
+    } ?: sortedMapOf()
+
+    override fun getDataEnclosedTotal(index: Int): SortedMap<Int, DataType?> {
+        val enclosedTotal: HashMap<Int, DataType?> = hashMapOf()
+
+        val enclosedImmediate = getDataEnclosedImmediate(index)
+        enclosedTotal.putAll(enclosedImmediate)
+
+        enclosedImmediate.forEach { immediatePair ->
+            enclosedTotal.putAll(getDataEnclosedTotal(immediatePair.key))
+        }
+
+        return enclosedTotal.toSortedMap()
+    }
 
     override fun getDataPosition(index: Int): AccordionRecyclerPosition = getPositionFromEnclosureIndexAndSize(index, dataCount)
 

@@ -41,11 +41,17 @@ class AdapterPresenter<DataType>(
         model.clearData()
     }
 
+    override fun removeEnclosedItems(enclosingPosition: Int) {
+        model.removeEnclosedData(enclosingPosition)
+    }
+
     override fun getItem(position: Int): DataType? = model.getData(position)
 
     override fun getItemViewType(position: Int): Int = model.getDataViewType(position)
 
-    override fun getItemEnclosedSum(position: Int): Int = model.getDataEnclosedSum(position)
+    override fun getItemEnclosedImmediateSum(position: Int): Int = model.getDataEnclosedImmediate(position).size
+
+    override fun getItemEnclosedTotalSum(position: Int): Int = model.getDataEnclosedTotal(position).size
 
     override fun getItemPosition(position: Int): AccordionRecyclerPosition = model.getDataPosition(position)
 
@@ -56,11 +62,27 @@ class AdapterPresenter<DataType>(
     }
 
     override fun onItemsAdded(startingPosition: Int, numberOfItemsAdded: Int) {
-        view.notifyItemRangeInserted(startingPosition, numberOfItemsAdded)
+        if (numberOfItemsAdded == 1) {
+            view.notifyItemInserted(startingPosition)
+        } else if (numberOfItemsAdded > 1) {
+            view.notifyItemRangeInserted(startingPosition, numberOfItemsAdded)
+        }
     }
 
     override fun onItemsRemoved(startingPosition: Int, numberOfItemsRemoved: Int) {
-        view.notifyItemRangeRemoved(startingPosition, numberOfItemsRemoved)
+        if (numberOfItemsRemoved == 1) {
+            view.notifyItemRemoved(startingPosition)
+        } else if (numberOfItemsRemoved > 1) {
+            view.notifyItemRangeRemoved(startingPosition, numberOfItemsRemoved)
+        }
+    }
+
+    override fun onItemsChanged(startingPosition: Int, numberOfItemsChanged: Int) {
+        if (numberOfItemsChanged == 1) {
+            view.notifyItemChanged(startingPosition)
+        } else if (numberOfItemsChanged > 1) {
+            view.notifyItemRangeChanged(startingPosition, numberOfItemsChanged)
+        }
     }
 
     companion object {

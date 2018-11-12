@@ -3,6 +3,9 @@ package com.izikode.accordionrecycler
 import com.izikode.accordionrecycler.adapter.AdapterContract
 import com.izikode.accordionrecycler.adapter.AdapterPresenter
 
+/**
+ *
+ */
 abstract class AccordionRecyclerAdapter<ViewHolder, DataType> : AdapterContract.View<ViewHolder, DataType>()
         where ViewHolder : AccordionRecyclerViewHolder<out AccordionRecyclerData<out DataType?>> {
 
@@ -36,6 +39,10 @@ abstract class AccordionRecyclerAdapter<ViewHolder, DataType> : AdapterContract.
         presenter.clearItems()
     }
 
+    fun removeEnclosedItems(enclosingPosition: Int) {
+        presenter.removeEnclosedItems(enclosingPosition)
+    }
+
     override fun getItemCount(): Int = presenter.itemCount
 
     override fun getItemViewType(position: Int): Int = presenter.getItemViewType(position)
@@ -45,7 +52,8 @@ abstract class AccordionRecyclerAdapter<ViewHolder, DataType> : AdapterContract.
             position,
             viewHolder,
             presenter.getItem(position),
-            presenter.getItemEnclosedSum(position),
+            presenter.getItemEnclosedImmediateSum(position),
+            presenter.getItemEnclosedTotalSum(position),
             presenter.getItemPosition(position),
             presenter.getItemEnclosedPosition(position)
         )

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.izikode.accordionrecycler.AccordionRecyclerData
 import com.izikode.accordionrecycler.AccordionRecyclerPosition
 import com.izikode.accordionrecycler.AccordionRecyclerViewHolder
+import java.util.*
 
 interface AdapterContract {
 
@@ -39,6 +40,13 @@ interface AdapterContract {
         fun removeData(startingIndex: Int, numberOfEntriesToRemove: Int, silently: Boolean = false)
 
         /**
+         * TODO
+         * @param enclosingIndex
+         * @param silently
+         */
+        fun removeEnclosedData(enclosingIndex: Int, silently: Boolean = false)
+
+        /**
          * Gets the data stored at the provided index.
          *
          * @param index  The index from which to retrieve data.
@@ -57,7 +65,12 @@ interface AdapterContract {
         /**
          *
          */
-        fun getDataEnclosedSum(index: Int): Int
+        fun getDataEnclosedImmediate(index: Int): SortedMap<Int, out DataType?>
+
+        /**
+         *
+         */
+        fun getDataEnclosedTotal(index: Int): SortedMap<Int, out DataType?>
 
         /**
          *
@@ -84,7 +97,7 @@ interface AdapterContract {
         /**
          *
          */
-        abstract fun updateViewHolder(position: Int, viewHolder: ViewHolder, data: DataType?, enclosedItemsSum: Int, overallPosition: AccordionRecyclerPosition, enclosedPosition: AccordionRecyclerPosition)
+        abstract fun updateViewHolder(position: Int, viewHolder: ViewHolder, data: DataType?, immediateEnclosedItemsSum: Int, totalEnclosedItemsSum: Int, overallPosition: AccordionRecyclerPosition, enclosedPosition: AccordionRecyclerPosition)
 
     }
 
@@ -131,6 +144,12 @@ interface AdapterContract {
         fun clearItems()
 
         /**
+         * TODO
+         * @param enclosingPosition
+         */
+        fun removeEnclosedItems(enclosingPosition: Int)
+
+        /**
          *
          */
         fun getItem(position: Int): DataType?
@@ -143,7 +162,12 @@ interface AdapterContract {
         /**
          *
          */
-        fun getItemEnclosedSum(position: Int): Int
+        fun getItemEnclosedImmediateSum(position: Int): Int
+
+        /**
+         *
+         */
+        fun getItemEnclosedTotalSum(position: Int): Int
 
         /**
          *
@@ -169,6 +193,11 @@ interface AdapterContract {
          *
          */
         fun onItemsRemoved(startingPosition: Int, numberOfItemsRemoved: Int)
+
+        /**
+         *
+         */
+        fun onItemsChanged(startingPosition: Int, numberOfItemsChanged: Int)
 
     }
 
