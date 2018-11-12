@@ -1,7 +1,7 @@
 package com.izikode.accordionrecyclerdemo
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.izikode.accordionrecyclerdemo.data.*
 import kotlinx.android.synthetic.main.activity_main.*
