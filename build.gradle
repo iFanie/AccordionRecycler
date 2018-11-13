@@ -6,7 +6,7 @@ buildscript {
                 REPO: 'izilib',
                 NAME: 'accordionrecycler',
 
-                DESCRIPTION: 'RecyclerView adapter with expand/contract functionality',
+                DESCRIPTION: 'RecyclerView adapter with nested items & expand/contract functionality',
 
                 WEBSITE: 'https://github.com/iFanie/AccordionRecycler',
                 GIT: 'https://github.com/iFanie/AccordionRecycler.git',
@@ -22,7 +22,7 @@ buildscript {
 
         Version = [
                 Core : [
-                        KOTLIN : "1.3.0"
+                        KOTLIN : "1.3.10"
                 ],
 
                 Sdk : [

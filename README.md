@@ -1,5 +1,5 @@
 # AccordionRecycler
-RecyclerView adapter with expand/contract functionality
+RecyclerView adapter with nested items & expand/contract functionality
 ## Installation
 ```
 coming
