@@ -5,8 +5,7 @@ import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
 import java.lang.ref.WeakReference
 import java.util.*
 
-class AdapterModel<DataType> :
-    AdapterContract.Model<DataType> {
+class AdapterModel<DataType> : AdapterContract.Model<DataType> {
 
     private lateinit var presenter: AdapterContract.Presenter<out DataType>
 
@@ -64,6 +63,7 @@ class AdapterModel<DataType> :
      * Adds all items in the provided array along with all enclosedDataArray data, in their relative order.
      *
      * @param dataArray  The items to be added, along with their enclosedDataArray data.
+     * @param containingData  The parent item, if existing, for the provided array.
      * @return The total number, primary plus enclosedDataArray, of data entries added.
      */
     private fun recursivelyAddAllAndReturnSum(startingIndex: Int, dataArray: Array<out AccordionRecyclerData<out DataType?>>, containingData: Wrapper<out DataType?>? = null): Int {
@@ -148,7 +148,12 @@ class AdapterModel<DataType> :
     }
 
     /**
+     * Removes the provided item's child data, and possibly, the provided item as well.
      *
+     * @param enclosingWrapper  The item whose children will be removed, and possibly itself too.
+     * @param inclusive  When {@code true} the provided item gets removed as well.
+     * @param backwards  When {@code true} the provided item gets removed from it's parent, if existing.
+     * @return The total number of data entries removed.
      */
     private fun recursivelyRemoveAllAndReturnSum(enclosingWrapper: Wrapper<out DataType?>, inclusive: Boolean = true, backwards: Boolean = false): Int {
         var sum = 0
@@ -234,7 +239,10 @@ class AdapterModel<DataType> :
     override fun getDataEnclosedPosition(index: Int): AccordionRecyclerPosition = getEnclosedPosition(dataList[index])
 
     /**
+     * Gets the position info of an item relative to it's parent.
      *
+     * @param wrapper  The item whose position is to be calculated.
+     * @return The position info for the item, relative to it's parent.
      */
     private fun getEnclosedPosition(wrapper: Wrapper<out DataType?>): AccordionRecyclerPosition = containingListMap[wrapper.enclosingWrapper]?.let { containingList ->
             clearListFromNullReferences(containingList)
@@ -256,7 +264,9 @@ class AdapterModel<DataType> :
         } ?: AccordionRecyclerPosition.UNKNOWN
 
     /**
+     * Removes any WeakReference entries that have been nullified by the Garbage Collector.
      *
+     * @param list  The list from which to remove nullified WeakReferences.
      */
     private fun clearListFromNullReferences(list: MutableList<WeakReference<Wrapper<out DataType?>>>) {
         val nullIndexes = arrayListOf<Int>()
@@ -273,7 +283,10 @@ class AdapterModel<DataType> :
     }
 
     /**
-     *
+     * Calculates position info based on index and size of total data.
+     * @param enclosureIndex  The index for the calculation.
+     * @param enclosureSize  The size of the total data.
+     * @return The calculated position info.
      */
     private fun getPositionFromEnclosureIndexAndSize(enclosureIndex: Int, enclosureSize: Int) = when {
 
@@ -292,17 +305,17 @@ class AdapterModel<DataType> :
         /**
          * The viewType of the current item.
          */
-        var viewType: Int,
+        val viewType: Int,
 
         /**
          * The item from which the current item hails from.
          */
-        var enclosingWrapper: Wrapper<out DataType?>?,
+        val enclosingWrapper: Wrapper<out DataType?>?,
 
         /**
          * The current item value.
          */
-        var data: DataType?
+        val data: DataType?
 
     )
 
