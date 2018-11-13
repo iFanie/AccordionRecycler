@@ -4,7 +4,7 @@ import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
 
 abstract class ColorData(
 
-        override var viewType: Int,
+        override val viewType: Int,
         override var enclosedDataArray: Array<out AccordionRecyclerData<out ColorData?>>? = null
 
 ) : AccordionRecyclerData<ColorData> {
