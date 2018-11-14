@@ -7,9 +7,9 @@ import java.util.*
 
 class AdapterModel<DataType> : AdapterContract.Model<DataType> {
 
-    private lateinit var presenter: AdapterContract.Presenter<out DataType>
+    private lateinit var presenter: AdapterContract.Presenter<DataType>
 
-    fun initialize(presenter: AdapterContract.Presenter<out DataType>) {
+    fun initialize(presenter: AdapterContract.Presenter<DataType>) {
         this.presenter = presenter
     }
 
@@ -82,28 +82,29 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
             }
 
         dataArray.forEach { accordionRecyclerData ->
+            presenter.processForAdditionalItems(startFrom, accordionRecyclerData).forEach { processedData ->
+                val mainWrapper = Wrapper(
+                    processedData?.viewType ?: -1,
+                    containingData,
+                    processedData?.mainData
+                )
 
-            val mainWrapper = Wrapper(
-                accordionRecyclerData.viewType,
-                containingData,
-                accordionRecyclerData.mainData
-            )
+                /* Add main data */
+                dataList.add(startFrom, mainWrapper)
 
-            /* Add main data */
-            dataList.add(startFrom, mainWrapper)
+                sum += 1
+                startFrom += 1
 
-            sum += 1
-            startFrom += 1
+                /* Update map list if needed */
+                containingList?.add(WeakReference(mainWrapper))
 
-            /* Update map list if needed */
-            containingList?.add(WeakReference(mainWrapper))
+                /* If exist, add enclosed data array recursively */
+                processedData?.enclosedDataArray?.let {
+                    val secondarySum = recursivelyAddAllAndReturnSum(startFrom, it, mainWrapper)
 
-            /* If exist, add enclosed data array recursively */
-            accordionRecyclerData.enclosedDataArray?.let {
-                val secondarySum = recursivelyAddAllAndReturnSum(startFrom, it, mainWrapper)
-
-                sum += secondarySum
-                startFrom += secondarySum
+                    sum += secondarySum
+                    startFrom += secondarySum
+                }
             }
         }
 
