@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
 
     private val colorData = arrayListOf<ColorData>().apply {
         add(GrayData("1 gray"))
-        addAll(redArray(5))
+        addAll(redArray(2))
         add(GrayData("2 gray"))
         add(GrayData("3 gray"))
         addAll(redArray(9))
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun redArray(sum: Int): Array<RedData> = Array(sum) { index ->
             RedData("$index red").apply {
-                enclosedDataArray = pinkArray(index, Random().nextInt(9))
+                enclosedDataArray = pinkArray(index, Random().nextInt(8) + 1)
             }
         }
 
