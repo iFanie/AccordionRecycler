@@ -36,9 +36,9 @@ buildscript {
                 ],
 
                 Build : [
-                        CODE    : 1,
+                        CODE    : 2,
                         MAJOR   : 0,
-                        MINOR   : 1
+                        MINOR   : 2
                 ]
         ]
     }
