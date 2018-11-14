@@ -117,6 +117,15 @@ interface AdapterContract {
             where ViewHolder : AccordionRecyclerViewHolder<out AccordionRecyclerData<out DataType?>> {
 
         /**
+         * Processes the data being added for any additions coming from edge cases, such as null data or empty enclosed data.
+         *
+         * @param position  The position of the item currently being added and being processed.
+         * @param item  The item currently being added and being processed.
+         * @return The post process array of items.
+         */
+        abstract fun processForAdditionalItems(position: Int, item: AccordionRecyclerData<out DataType?>?): Array<out AccordionRecyclerData<out DataType?>?>
+
+        /**
          * Creates a new ViewHolder instance for the provided parent, based on the provided viewType.
          *
          * @param parent  The parent ViewGroup of the ViewHolder.
@@ -212,6 +221,15 @@ interface AdapterContract {
          * @param enclosedItemMutableList  The mutable list to be added as children.
          */
         fun addEnclosedItems(enclosingPosition: Int, enclosedItemMutableList: MutableList<out AccordionRecyclerData<out DataType?>>)
+
+        /**
+         * Processes the data being added for any additions coming from edge cases, such as null data or empty enclosed data.
+         *
+         * @param position  The position of the item currently being added and being processed.
+         * @param item  The item currently being added and being processed.
+         * @return The post process array of items.
+         */
+        fun processForAdditionalItems(position: Int, item: AccordionRecyclerData<out DataType?>?): Array<out AccordionRecyclerData<out DataType?>?>
 
         /**
          * Removes all current data.
