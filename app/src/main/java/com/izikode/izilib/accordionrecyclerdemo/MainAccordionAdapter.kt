@@ -2,6 +2,7 @@ package com.izikode.izilib.accordionrecyclerdemo
 
 import android.view.ViewGroup
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerAdapter
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
 import com.izikode.izilib.accordionrecyclerdemo.data.*
 import com.izikode.izilib.accordionrecyclerdemo.viewholder.*
@@ -19,11 +20,27 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
             }
         }
 
+    override fun processForAdditionalItems(position: Int, item: AccordionRecyclerData<out ColorData?>?)
+            : Array<out AccordionRecyclerData<out ColorData?>?> = item?.let {
+
+                    if (it is PinkData && it.enclosedDataArray.isNullOrEmpty()) {
+                        arrayOf(
+                            it.apply {
+                                enclosedDataArray = arrayOf(EmptyPinkViewHolder.EmptyPinkData())
+                            }
+                        )
+                    } else {
+                        super.processForAdditionalItems(position, item)
+                    }
+
+                } ?: super.processForAdditionalItems(position, item)
+
     override fun buildViewHolder(parent: ViewGroup, viewType: Int): ColorViewHolder<out ColorData> =
         when(viewType) {
 
             RedViewHolder.VIEW_TYPE -> RedViewHolder(parent)
             PinkViewHolder.VIEW_TYPE -> PinkViewHolder(parent)
+            EmptyPinkViewHolder.VIEW_TYPE -> EmptyPinkViewHolder(parent)
             WhiteViewHolder.VIEW_TYPE -> WhiteViewHolder(parent)
 
             else -> GrayViewHolder(parent)
@@ -56,6 +73,10 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
                         }
                     }
                 }
+
+            is EmptyPinkViewHolder -> viewHolder.apply {
+                update(data as EmptyPinkViewHolder.EmptyPinkData?, overallPosition, enclosedPosition, totalEnclosedItemsSum)
+            }
 
             is WhiteViewHolder -> viewHolder.apply {
                     update(data as WhiteData?, overallPosition, enclosedPosition)

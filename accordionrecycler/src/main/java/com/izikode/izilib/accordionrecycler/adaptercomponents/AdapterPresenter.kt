@@ -7,7 +7,7 @@ import com.izikode.izilib.accordionrecycler.AccordionRecyclerViewHolder
 class AdapterPresenter<DataType>(
 
     private val model: AdapterContract.Model<DataType>,
-    private val view: AdapterContract.View<out AccordionRecyclerViewHolder<out AccordionRecyclerData<out DataType?>>, out DataType>
+    private val view: AdapterContract.View<out AccordionRecyclerViewHolder<out AccordionRecyclerData<out DataType?>>, DataType>
 
 ) : AdapterContract.Presenter<DataType> {
 
@@ -48,6 +48,8 @@ class AdapterPresenter<DataType>(
     override fun addEnclosedItems(enclosingPosition: Int, enclosedItemMutableList: MutableList<out AccordionRecyclerData<out DataType?>>) {
         model.addEnclosedData(enclosingPosition, enclosedItemMutableList.toTypedArray())
     }
+
+    override fun processForAdditionalItems(position: Int, item: AccordionRecyclerData<out DataType?>?): Array<out AccordionRecyclerData<out DataType?>?> = view.processForAdditionalItems(position, item)
 
     override fun clearItems() {
         model.clearData()
@@ -104,7 +106,7 @@ class AdapterPresenter<DataType>(
     companion object {
 
         @JvmStatic
-        fun <DataType> make(view: AdapterContract.View<out AccordionRecyclerViewHolder<out AccordionRecyclerData<out DataType?>>, out DataType>)
+        fun <DataType> make(view: AdapterContract.View<out AccordionRecyclerViewHolder<out AccordionRecyclerData<out DataType?>>, DataType>)
                 : AdapterPresenter<DataType> {
 
             val model = AdapterModel<DataType>()

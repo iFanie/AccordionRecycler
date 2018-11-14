@@ -97,6 +97,9 @@ abstract class AccordionRecyclerAdapter<ViewHolder, DataType> : AdapterContract.
         presenter.addEnclosedItems(enclosingPosition, enclosedItemMutableList)
     }
 
+    override fun processForAdditionalItems(position: Int, item: AccordionRecyclerData<out DataType?>?)
+            : Array<out AccordionRecyclerData<out DataType?>?> = arrayOf(item)
+
     /**
      * Removes all current data.
      */
