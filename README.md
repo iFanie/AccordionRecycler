@@ -2,7 +2,7 @@
 RecyclerView adapter with nested items & expand/contract functionality
 ## Installation
 ```
-implementation 'com.izikode.izilib:accordionrecycler:0.1'
+implementation 'com.izikode.izilib:accordionrecycler:0.3'
 ```
 ## Usage
 #### Have your Model Classes implement the ```AccordionRecyclerData``` interface.
@@ -36,7 +36,7 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
 
             }
 
-    override fun updateViewHolder(position: Int, viewHolder: ColorViewHolder<out ColorData>, data: ColorData?, immediateEnclosedItemsSum: Int, totalEnclosedItemsSum: Int, overallPosition: AccordionRecyclerPosition, enclosedPosition: AccordionRecyclerPosition) {
+    override fun updateViewHolder(position: Int, viewHolder: ColorViewHolder<out ColorData>, data: ColorData?, details: AccordionRecyclerItemDetails) {
             when (viewHolder) {
 
                 is RedViewHolder -> viewHolder.apply { ... }

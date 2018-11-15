@@ -131,15 +131,7 @@ abstract class AccordionRecyclerAdapter<ViewHolder, DataType> : AdapterContract.
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder = buildViewHolder(p0, p1)
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        updateViewHolder(
-            position,
-            viewHolder,
-            presenter.getItem(position),
-            presenter.getItemEnclosedImmediateSum(position),
-            presenter.getItemEnclosedTotalSum(position),
-            presenter.getItemPosition(position),
-            presenter.getItemEnclosedPosition(position)
-        )
+        updateViewHolder(position, viewHolder, presenter.getItem(position), presenter.getItemRecyclingDetails(position))
     }
 
 }
