@@ -36,7 +36,7 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
 
             }
 
-    override fun updateViewHolder(position: Int, viewHolder: ColorViewHolder<out ColorData>, data: ColorData?, immediateEnclosedItemsSum: Int, totalEnclosedItemsSum: Int, overallPosition: AccordionRecyclerPosition, enclosedPosition: AccordionRecyclerPosition) {
+    override fun updateViewHolder(position: Int, viewHolder: ColorViewHolder<out ColorData>, data: ColorData?, details: AccordionRecyclerItemDetails) {
             when (viewHolder) {
 
                 is RedViewHolder -> viewHolder.apply { ... }
