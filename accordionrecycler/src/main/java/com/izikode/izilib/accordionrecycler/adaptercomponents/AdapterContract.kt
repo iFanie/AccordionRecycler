@@ -298,7 +298,7 @@ interface AdapterContract {
          * @param position  The item that is being recycled.
          * @return The additional info needed for the item being recycled.
          */
-        fun getItemRcyclingDetails(position: Int): AccordionRecyclerItemDetails
+        fun getItemRecyclingDetails(position: Int): AccordionRecyclerItemDetails
 
         /**
          * Function called when the data set of the adapter changes.

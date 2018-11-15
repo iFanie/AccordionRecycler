@@ -76,7 +76,7 @@ class AdapterPresenter<DataType>(
 
     override fun getItemEnclosedPosition(position: Int): AccordionRecyclerPosition = model.getDataEnclosedPosition(position)
 
-    override fun getItemRcyclingDetails(position: Int): AccordionRecyclerItemDetails = AccordionRecyclerItemDetails(
+    override fun getItemRecyclingDetails(position: Int): AccordionRecyclerItemDetails = AccordionRecyclerItemDetails(
             getItemEnclosedImmediateSum(position), getItemEnclosedTotalSum(position),
             getItemPosition(position), getItemEnclosedPosition(position)
         )
