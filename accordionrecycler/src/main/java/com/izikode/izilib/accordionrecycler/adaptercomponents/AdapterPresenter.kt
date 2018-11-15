@@ -1,6 +1,7 @@
 package com.izikode.izilib.accordionrecycler.adaptercomponents
 
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerItemDetails
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerViewHolder
 
@@ -74,6 +75,12 @@ class AdapterPresenter<DataType>(
     override fun getItemPosition(position: Int): AccordionRecyclerPosition = model.getDataPosition(position)
 
     override fun getItemEnclosedPosition(position: Int): AccordionRecyclerPosition = model.getDataEnclosedPosition(position)
+
+    override fun getItemRecyclingDetails(position: Int): AccordionRecyclerItemDetails = AccordionRecyclerItemDetails(
+            getItemEnclosedImmediateSum(position), getItemEnclosedTotalSum(position),
+            getItemPosition(position), getItemEnclosedPosition(position),
+            model.getEnclosingDataIndex(position)?.let { getItemRecyclingDetails(it) }
+        )
 
     override fun onItemSetChanged() {
         view.notifyDataSetChanged()

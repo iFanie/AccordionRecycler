@@ -2,7 +2,7 @@
 RecyclerView adapter with nested items & expand/contract functionality
 ## Installation
 ```
-implementation 'com.izikode.izilib:accordionrecycler:0.1'
+implementation 'com.izikode.izilib:accordionrecycler:0.3'
 ```
 ## Usage
 #### Have your Model Classes implement the ```AccordionRecyclerData``` interface.

@@ -3,7 +3,7 @@ package com.izikode.izilib.accordionrecyclerdemo
 import android.view.ViewGroup
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerAdapter
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
-import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerItemDetails
 import com.izikode.izilib.accordionrecyclerdemo.data.*
 import com.izikode.izilib.accordionrecyclerdemo.viewholder.*
 
@@ -47,11 +47,11 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
 
         }
 
-    override fun updateViewHolder(position: Int, viewHolder: ColorViewHolder<out ColorData>, data: ColorData?, immediateEnclosedItemsSum: Int, totalEnclosedItemsSum: Int, overallPosition: AccordionRecyclerPosition, enclosedPosition: AccordionRecyclerPosition) {
+    override fun updateViewHolder(position: Int, viewHolder: ColorViewHolder<out ColorData>, data: ColorData?, details: AccordionRecyclerItemDetails) {
         when (viewHolder) {
 
             is RedViewHolder -> viewHolder.apply {
-                    update(data as RedData?, overallPosition, immediateEnclosedItemsSum)
+                    update(data as RedData?, details.overallPosition, details.numberOfImmediateEnclosedItems)
 
                     onClick = { position, enclosedSum ->
                         if (enclosedSum > 0) {
@@ -63,7 +63,7 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
                 }
 
             is PinkViewHolder -> viewHolder.apply {
-                    update(data as PinkData?, overallPosition, enclosedPosition, totalEnclosedItemsSum)
+                    update(data as PinkData?, details.overallPosition, details.enclosedPosition, details.numberOfTotalEnclosedItems)
 
                     onClick = { position, enclosedSum ->
                         if (enclosedSum > 0) {
@@ -75,18 +75,18 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
                 }
 
             is EmptyPinkViewHolder -> viewHolder.apply {
-                update(data as EmptyPinkViewHolder.EmptyPinkData?, overallPosition, enclosedPosition, totalEnclosedItemsSum)
+                update(data as EmptyPinkViewHolder.EmptyPinkData?, details.overallPosition, details.enclosedPosition, details.numberOfTotalEnclosedItems)
             }
 
             is WhiteViewHolder -> viewHolder.apply {
-                    update(data as WhiteData?, overallPosition, enclosedPosition)
+                    update(data as WhiteData?, details.overallPosition, details.enclosedPosition)
 
                     onClick = {
                         removeItem(it)
                     }
                 }
 
-            else -> (viewHolder as GrayViewHolder).update(data as GrayData?, overallPosition)
+            else -> (viewHolder as GrayViewHolder).update(data as GrayData?, details.overallPosition)
 
         }
     }
