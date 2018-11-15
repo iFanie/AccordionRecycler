@@ -73,6 +73,13 @@ interface AdapterContract {
         fun getData(index: Int): DataType?
 
         /**
+         * Gets the index of the data enclosing the data at the provided index.
+         * @param enclosedIndex  The index of the enclosed data.
+         * @return The index of the enclosing index, if existing.
+         */
+        fun getEnclosingDataIndex(enclosedIndex: Int): Int?
+
+        /**
          * Gets the viewType of the data stored at the provided index.
          *
          * @param index  The index of the data whose viewType will be returned.

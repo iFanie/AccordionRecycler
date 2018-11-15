@@ -206,6 +206,8 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
 
     override fun getData(index: Int): DataType? = dataList[index].data
 
+    override fun getEnclosingDataIndex(enclosedIndex: Int): Int? = dataList[enclosedIndex].enclosingWrapper?.let { dataList.indexOf(it) }
+
     override fun getDataViewType(index: Int): Int = dataList[index].viewType
 
     override fun getDataEnclosedImmediate(index: Int): SortedMap<Int, DataType?> = containingListMap[dataList[index]]?.let {
