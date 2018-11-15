@@ -3,6 +3,7 @@ package com.izikode.izilib.accordionrecycler.adaptercomponents
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerItemDetails
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerViewHolder
 import java.util.*
@@ -140,12 +141,9 @@ interface AdapterContract {
          * @param position  The position of the data on the recycler.
          * @param viewHolder  The ViewHolder to be renewed.
          * @param data  The data to be used for the renewal of the ViewHolder.
-         * @param immediateEnclosedItemsSum  The number of immediate children of the current item.
-         * @param totalEnclosedItemsSum  The number of total children, immediate or not, of the current item.
-         * @param overallPosition  The overall position info of the current item.
-         * @param enclosedPosition  The position info of the current item, relative to it's parent item.
+         * @param details Details about the item being recycled.
          */
-        abstract fun updateViewHolder(position: Int, viewHolder: ViewHolder, data: DataType?, immediateEnclosedItemsSum: Int, totalEnclosedItemsSum: Int, overallPosition: AccordionRecyclerPosition, enclosedPosition: AccordionRecyclerPosition)
+        abstract fun updateViewHolder(position: Int, viewHolder: ViewHolder, data: DataType?, details: AccordionRecyclerItemDetails)
 
     }
 
@@ -294,6 +292,13 @@ interface AdapterContract {
          * @return The position info of the item at the provided index, relative to it's parent.
          */
         fun getItemEnclosedPosition(position: Int): AccordionRecyclerPosition
+
+        /**
+         * Builds additional info required by an item being recycled.
+         * @param position  The item that is being recycled.
+         * @return The additional info needed for the item being recycled.
+         */
+        fun getItemRcyclingDetails(position: Int): AccordionRecyclerItemDetails
 
         /**
          * Function called when the data set of the adapter changes.
