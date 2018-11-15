@@ -23,6 +23,11 @@ data class AccordionRecyclerItemDetails(
     /**
      * The position info of the current item, relative to it's parent item.
      */
-    val enclosedPosition: AccordionRecyclerPosition
+    val enclosedPosition: AccordionRecyclerPosition,
+
+    /**
+     * The recycling details of the item enclosing the current, if existing.
+     */
+    val enclosingDetails: AccordionRecyclerItemDetails?
 
 )
