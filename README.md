@@ -57,6 +57,11 @@ class WhiteViewHolder( ... ) : ColorViewHolder<RedData>
 #### Create an Adapter that extends the ```AccordionRecyclerAdapter``` abstract class.
 - Override the ```buildViewHolder``` function to provide new ViewHolder instances.
 - Override the ```updateViewHolder``` function to update each item being recycled. The ```AccordionRecyclerItemDetails``` parameter contains information about the current item and all enclosing (parent) items, when existing. This allows for unlimited visual combinations for all view types.
+- Expand/Collapse is accomplished with:
+    - ```removeItem``` to remove an item and all it's child items, if existing.
+    - ```removeEnclosedItems``` to remove the child items only.
+    - ```addItems``` to add all items and their child items, if existing.
+    - ```addEnclosedItems``` to add all items as child items to another.
 - Optionally, you can modify how each item is handled when it is iterated and added into the recycler data. You do that by overriding the ```processForAdditionalItems``` function. You can use this feature to handle edge case. One such case is shown in the demo, in which whenever a Pink item does not have any child White items, a new item is added, showing the text 'Nothing to see here'.
 ```kotlin
 class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorData>, ColorData>() {
