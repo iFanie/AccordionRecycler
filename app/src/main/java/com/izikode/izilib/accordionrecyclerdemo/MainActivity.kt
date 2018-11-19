@@ -14,31 +14,8 @@ class MainActivity : AppCompatActivity() {
         addAll(redArray(2))
         add(GrayData("2 gray"))
         add(GrayData("3 gray"))
-        addAll(redArray(9))
+        addAll(redArray(4))
         add(GrayData("4 gray"))
-        add(GrayData("5 gray"))
-        add(GrayData("6 gray"))
-        add(GrayData("7 gray"))
-        addAll(redArray(4))
-        add(GrayData("8 gray"))
-        addAll(redArray(7))
-        add(GrayData("9 gray"))
-        add(GrayData("10 gray"))
-        addAll(redArray(2))
-        add(GrayData("11 gray"))
-        addAll(redArray(5))
-        add(GrayData("12 gray"))
-        add(GrayData("13 gray"))
-        addAll(redArray(9))
-        add(GrayData("14 gray"))
-        add(GrayData("15 gray"))
-        add(GrayData("16 gray"))
-        add(GrayData("17 gray"))
-        addAll(redArray(4))
-        add(GrayData("18 gray"))
-        addAll(redArray(7))
-        add(GrayData("19 gray"))
-        add(GrayData("20 gray"))
         addAll(redArray(2))
     }
 
@@ -46,13 +23,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun redArray(sum: Int): Array<RedData> = Array(sum) { index ->
             RedData("$index red").apply {
-                enclosedDataArray = pinkArray(index, Random().nextInt(8) + 1)
+                arrayOfPink = pinkArray(index, Random().nextInt(8) + 1)
             }
         }
 
     private fun pinkArray(forRed: Int, sum: Int): Array<PinkData> = Array(sum) { index ->
             PinkData("$index pink of $forRed red").apply {
-                enclosedDataArray = whiteArray(index, Random().nextInt(9))
+                arrayOfWhite = whiteArray(index, Random().nextInt(9))
             }
         }
 
