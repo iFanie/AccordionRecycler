@@ -119,6 +119,21 @@ interface AdapterContract {
          */
         fun getDataEnclosedPosition(index: Int): AccordionRecyclerPosition
 
+        /**
+         * Builds additional info required by an item being recycled.
+         *
+         * @param index  The item that is being recycled.
+         * @return The additional info needed for the item being recycled.
+         */
+        fun getDataRecyclingDetails(index: Int): AccordionRecyclerItemDetails
+
+        /**
+         * Clears the reusable additional recycling info for the item at the provided index.
+         *
+         * @param index  The item whose additional info will be removed.
+         */
+        fun removeDataRecyclingDetails(index: Int)
+
     }
 
     abstract class View<ViewHolder, DataType> : RecyclerView.Adapter<ViewHolder>()
