@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-AccordionRecycler-green.svg?style=flat )]( https://android-arsenal.com/details/1/7321 )
-[![Bintray](https://img.shields.io/badge/Bintray-0.3-lightgrey.svg)](https://dl.bintray.com/ifanie/izilib/com/izikode/izilib/accordionrecycler/0.3/)
+[![Bintray](https://img.shields.io/badge/Bintray-0.4-lightgrey.svg)](https://dl.bintray.com/ifanie/izilib/com/izikode/izilib/accordionrecycler/0.4/)
 
 #### Android RecyclerView Adapter with nested items & expand/contract functionality
 With AccordionRecycler you can easily create awesome RecyclerViews, containing infinitely nested items and the ability to expand or collapse any part of the View at will.
@@ -11,7 +11,7 @@ With AccordionRecycler you can easily create awesome RecyclerViews, containing i
 
 ## Installation
 ```
-implementation 'com.izikode.izilib:accordionrecycler:0.3'
+implementation 'com.izikode.izilib:accordionrecycler:0.4'
 ```
 ## Usage
 #### Have your Model Classes implement the ```AccordionRecyclerData``` interface.
