@@ -8,7 +8,6 @@ import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
 import com.izikode.izilib.accordionrecyclerdemo.R
 import com.izikode.izilib.accordionrecyclerdemo.data.ColorData
-import com.izikode.izilib.accordionrecyclerdemo.data.PinkData
 
 class EmptyPinkViewHolder(parent: ViewGroup) : ColorViewHolder<EmptyPinkViewHolder.EmptyPinkData>(parent, R.layout.view_holder_empty_pink) {
 
