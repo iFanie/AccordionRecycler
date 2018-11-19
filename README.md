@@ -21,17 +21,23 @@ implementation 'com.izikode.izilib:accordionrecycler:0.3'
 ```kotlin
 abstract class ColorData : AccordionRecyclerData<ColorData>
 
-class RedData(var text: String) : ColorData() {
+data class RedData(
 
-    override val viewType: Int = RedViewHolder.VIEW_TYPE
-    override var mainData: ColorData? = this
-    override var enclosedDataArray: Array<out AccordionRecyclerData<out ColorData?>>? = arrayOf()
-    
+        var arrayOfPink: Array<PinkData> = arrayOf()
+
+) : ColorData(RedViewHolder.VIEW_TYPE) {
+
+    override val mainData: ColorData?
+            get() = this
+
+    override val enclosedDataArray: Array<out AccordionRecyclerData<out ColorData?>>?
+            get() = arrayOfPink
+
 }
 
-class GrayData( ... ) : ColorData() { ... }
-class PinkData( ... ) : ColorData() { ... }
-class WhiteData( ... ) : ColorData() { ... }
+data class GrayData( ... ) : ColorData() { ... }
+data class PinkData( ... ) : ColorData() { ... }
+data class WhiteData( ... ) : ColorData() { ... }
 ```
 #### Have your ViewHolders extend the ```AccordionRecyclerViewHolder``` abstract class.
 - Provide the ViewHolder constructor with the parent ViewGroup and the layout to be inflated.
@@ -96,9 +102,8 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
 
                     if (it is PinkData && it.enclosedDataArray.isNullOrEmpty()) {
                         arrayOf(
-                            it.apply {
-                                enclosedDataArray = arrayOf(EmptyPinkViewHolder.EmptyPinkData())
-                            }
+                            it,
+                            EmptyPinkViewHolder.EmptyPinkData()
                         )
                     } else {
                         super.processForAdditionalItems(position, item)
