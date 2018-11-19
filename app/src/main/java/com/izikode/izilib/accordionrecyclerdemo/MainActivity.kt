@@ -46,13 +46,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun redArray(sum: Int): Array<RedData> = Array(sum) { index ->
             RedData("$index red").apply {
-                enclosedDataArray = pinkArray(index, Random().nextInt(8) + 1)
+                arrayOfPink = pinkArray(index, Random().nextInt(8) + 1)
             }
         }
 
     private fun pinkArray(forRed: Int, sum: Int): Array<PinkData> = Array(sum) { index ->
             PinkData("$index pink of $forRed red").apply {
-                enclosedDataArray = whiteArray(index, Random().nextInt(9))
+                arrayOfWhite = whiteArray(index, Random().nextInt(9))
             }
         }
 

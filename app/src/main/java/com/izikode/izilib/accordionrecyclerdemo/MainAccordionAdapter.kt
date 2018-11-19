@@ -25,9 +25,8 @@ class MainAccordionAdapter : AccordionRecyclerAdapter<ColorViewHolder<out ColorD
 
                     if (it is PinkData && it.enclosedDataArray.isNullOrEmpty()) {
                         arrayOf(
-                            it.apply {
-                                enclosedDataArray = arrayOf(EmptyPinkViewHolder.EmptyPinkData())
-                            }
+                            it,
+                            EmptyPinkViewHolder.EmptyPinkData()
                         )
                     } else {
                         super.processForAdditionalItems(position, item)
