@@ -14,11 +14,11 @@ interface AccordionRecyclerData<Type> {
     /**
      * The main and primary data of the item.
      */
-    var mainData: Type?
+    val mainData: Type?
 
     /**
      * The enclosed, secondary and nested set of items.
      */
-    var enclosedDataArray: Array<out AccordionRecyclerData<out Type?>>?
+    val enclosedDataArray: Array<out AccordionRecyclerData<out Type?>>?
 
 }

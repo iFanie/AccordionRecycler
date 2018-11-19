@@ -9,55 +9,46 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    var grayIndex = 0
     private val colorData = arrayListOf<ColorData>().apply {
-        add(GrayData("1 gray"))
-        addAll(redArray(2))
-        add(GrayData("2 gray"))
-        add(GrayData("3 gray"))
-        addAll(redArray(9))
-        add(GrayData("4 gray"))
-        add(GrayData("5 gray"))
-        add(GrayData("6 gray"))
-        add(GrayData("7 gray"))
-        addAll(redArray(4))
-        add(GrayData("8 gray"))
-        addAll(redArray(7))
-        add(GrayData("9 gray"))
-        add(GrayData("10 gray"))
-        addAll(redArray(2))
-        add(GrayData("11 gray"))
-        addAll(redArray(5))
-        add(GrayData("12 gray"))
-        add(GrayData("13 gray"))
-        addAll(redArray(9))
-        add(GrayData("14 gray"))
-        add(GrayData("15 gray"))
-        add(GrayData("16 gray"))
-        add(GrayData("17 gray"))
-        addAll(redArray(4))
-        add(GrayData("18 gray"))
-        addAll(redArray(7))
-        add(GrayData("19 gray"))
-        add(GrayData("20 gray"))
-        addAll(redArray(2))
+        repeat(100) {
+            add(gray())
+            addAll(redArray(2))
+            add(gray())
+            add(gray())
+            addAll(redArray(8))
+            add(gray())
+            add(gray())
+            add(gray())
+            addAll(redArray(3))
+            add(gray())
+            addAll(redArray(1))
+            add(gray())
+            addAll(redArray(4))
+        }
     }
 
     fun getNewPink() = pinkArray(-1, Random().nextInt(4) + 1)
 
-    private fun redArray(sum: Int): Array<RedData> = Array(sum) { index ->
-            RedData("$index red").apply {
-                enclosedDataArray = pinkArray(index, Random().nextInt(8) + 1)
-            }
+    private fun gray() = GrayData("$grayIndex gray").also { grayIndex += 1 }
+
+    var redIndex = 0
+    private fun redArray(sum: Int): Array<RedData> = Array(sum) {
+            RedData("$redIndex red").apply {
+                arrayOfPink = pinkArray(redIndex, Random().nextInt(8) + 1)
+            }.also { redIndex += 1 }
         }
 
-    private fun pinkArray(forRed: Int, sum: Int): Array<PinkData> = Array(sum) { index ->
-            PinkData("$index pink of $forRed red").apply {
-                enclosedDataArray = whiteArray(index, Random().nextInt(9))
-            }
+    var pinkIndex = 0
+    private fun pinkArray(forRed: Int, sum: Int): Array<PinkData> = Array(sum) {
+            PinkData("$pinkIndex pink of $forRed red").apply {
+                arrayOfWhite = whiteArray(pinkIndex, Random().nextInt(9))
+            }.also { pinkIndex += 1 }
         }
 
-    private fun whiteArray(forPink: Int, sum: Int): Array<WhiteData> = Array(sum) { index ->
-            WhiteData("$index white of $forPink pink")
+    var whiteIndex = 0
+    private fun whiteArray(forPink: Int, sum: Int): Array<WhiteData> = Array(sum) {
+            WhiteData("$whiteIndex white of $forPink pink").also { whiteIndex += 1 }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         accordionAdapter.colors = colorData
+        hello.text = "Hello Accordion Recycler! size: ${accordionAdapter.itemCount}"
     }
 
 }

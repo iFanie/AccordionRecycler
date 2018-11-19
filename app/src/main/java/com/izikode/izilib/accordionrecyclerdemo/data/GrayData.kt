@@ -1,9 +1,15 @@
 package com.izikode.izilib.accordionrecyclerdemo.data
 
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
 import com.izikode.izilib.accordionrecyclerdemo.viewholder.GrayViewHolder
 
-class GrayData(
+data class GrayData(
 
-    override var text: String
+        override var text: String
 
-) : ColorData(GrayViewHolder.VIEW_TYPE, arrayOf())
+) : ColorData(GrayViewHolder.VIEW_TYPE) {
+
+    override val enclosedDataArray: Array<out AccordionRecyclerData<out ColorData?>>?
+        get() = null
+
+}

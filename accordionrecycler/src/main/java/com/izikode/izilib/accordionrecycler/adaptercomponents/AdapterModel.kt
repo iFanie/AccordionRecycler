@@ -1,6 +1,7 @@
 package com.izikode.izilib.accordionrecycler.adaptercomponents
 
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerItemDetails
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
 import java.lang.ref.WeakReference
 import java.util.*
@@ -22,6 +23,11 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
      * Map of items and their enclosed subItems.
      */
     private val containingListMap: WeakHashMap<Wrapper<out DataType?>, MutableList<WeakReference<Wrapper<out DataType?>>>> = WeakHashMap()
+
+    /**
+     * Map of reusable item details.
+     */
+    private val detailsMap: WeakHashMap<Wrapper<out DataType?>, AccordionRecyclerItemDetails> = WeakHashMap()
 
     override val dataCount: Int get() = dataList.size
 
@@ -299,6 +305,21 @@ class AdapterModel<DataType> : AdapterContract.Model<DataType> {
             else -> AccordionRecyclerPosition.MIDDLE
 
         }
+
+    override fun getDataRecyclingDetails(index: Int): AccordionRecyclerItemDetails = dataList[index].let { wrapper ->
+            detailsMap[wrapper] ?:
+            AccordionRecyclerItemDetails(
+                    getDataEnclosedImmediate(index).size,
+                    getDataEnclosedTotal(index).size,
+                    getDataPosition(index),
+                    getDataEnclosedPosition(index),
+                    getEnclosingDataIndex(index)?.let { getDataRecyclingDetails(it) }
+            ).also { detailsMap[wrapper] = it }
+        }
+
+    override fun removeDataRecyclingDetails(index: Int) {
+        detailsMap.remove(dataList[index])
+    }
 
     /**
      * Helper class for the model data items.
