@@ -4,6 +4,7 @@ import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.izikode.izilib.accordionrecycler.AccordionRecyclerData
 import com.izikode.izilib.accordionrecycler.AccordionRecyclerPosition
 import com.izikode.izilib.accordionrecyclerdemo.R
 import com.izikode.izilib.accordionrecyclerdemo.data.ColorData
@@ -106,9 +107,12 @@ class EmptyPinkViewHolder(parent: ViewGroup) : ColorViewHolder<EmptyPinkViewHold
 
     }
 
-    class EmptyPinkData : ColorData(VIEW_TYPE, null) {
+    class EmptyPinkData : ColorData(VIEW_TYPE) {
 
         override var text: String = "Nothing to see here"
+
+        override val enclosedDataArray: Array<out AccordionRecyclerData<out ColorData?>>?
+            get() = null
 
     }
 
