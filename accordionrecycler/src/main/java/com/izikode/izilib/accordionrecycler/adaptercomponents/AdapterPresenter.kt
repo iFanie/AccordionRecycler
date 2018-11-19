@@ -76,11 +76,7 @@ class AdapterPresenter<DataType>(
 
     override fun getItemEnclosedPosition(position: Int): AccordionRecyclerPosition = model.getDataEnclosedPosition(position)
 
-    override fun getItemRecyclingDetails(position: Int): AccordionRecyclerItemDetails = AccordionRecyclerItemDetails(
-            getItemEnclosedImmediateSum(position), getItemEnclosedTotalSum(position),
-            getItemPosition(position), getItemEnclosedPosition(position),
-            model.getEnclosingDataIndex(position)?.let { getItemRecyclingDetails(it) }
-        )
+    override fun getItemRecyclingDetails(position: Int): AccordionRecyclerItemDetails = model.getDataRecyclingDetails(position)
 
     override fun onItemSetChanged() {
         view.notifyDataSetChanged()
@@ -104,8 +100,13 @@ class AdapterPresenter<DataType>(
 
     override fun onItemsChanged(startingPosition: Int, numberOfItemsChanged: Int) {
         if (numberOfItemsChanged == 1) {
+            model.removeDataRecyclingDetails(startingPosition)
             view.notifyItemChanged(startingPosition)
         } else if (numberOfItemsChanged > 1) {
+            repeat(numberOfItemsChanged) { iteration ->
+                model.removeDataRecyclingDetails(startingPosition + iteration)
+            }
+
             view.notifyItemRangeChanged(startingPosition, numberOfItemsChanged)
         }
     }
